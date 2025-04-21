@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Transcription App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      background: #ffffffcc;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 720px;
+      backdrop-filter: blur(8px);
+    }
+
+    .upload-container {
+      border: 2px dashed #ff6b6b;
+      padding: 30px;
+      text-align: center;
+      border-radius: 15px;
+      background-color: #fff5f5;
+    }
+
+    input[type="file"] {
+      margin-top: 15px;
+    }
+
+    video {
+      width: 100%;
+      margin-top: 25px;
+      border-radius: 12px;
+      display: none;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .button {
+      background-image: linear-gradient(135deg, #ff6b6b, #ff9f43);
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: transform 0.2s ease, box-shadow 0.3s;
+      box-shadow: 0 4px 14px rgba(255, 107, 107, 0.4);
+    }
+
+    .button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255, 107, 107, 0.5);
+    }
+
+    .button:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+
+    .progress-container {
+      margin-top: 30px;
+      display: none;
+    }
+
+    #progressBar {
+      background-color: #ffe0b2;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #progress {
+      height: 22px;
+      width: 0%;
+      background-color: #29b6f6;
+      color: white;
+      line-height: 22px;
+      text-align: center;
+      transition: width 0.4s ease-in-out;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .transcription-container {
+      margin-top: 40px;
+      display: none;
+      border: 1px solid #ffb74d;
+      background: #fff8e1;
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .transcription-status {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #e65100;
+    }
+
+    #transcriptionText {
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+      margin-top: 10px;
+      color: #4e342e;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎬 Video to Text Transcription</h1>
+
+  <div class="container">
+    <div class="upload-container">
+      <p><strong>Select a video file to upload:</strong></p>
+      <input type="file" id="videoInput" accept="video/*" />
+      <br />
+      <button id="uploadButton" class="button" disabled>Upload Video</button>
+    </div>
+
+    <video id="videoPreview" controls></video>
+
+    <div class="progress-container" id="progressContainer">
+      <div id="progressBar">
+        <div id="progress">0%</div>
+      </div>
+      <div id="status">Ready to upload</div>
+    </div>
+
+    <div class="transcription-container" id="transcriptionContainer">
+      <h2>📝 Transcription Status</h2>
+      <div class="transcription-status" id="transcriptionStatus">Waiting for upload...</div>
+      <button id="checkStatusButton" class="button" disabled>Check Status</button>
+
+      <h3>📄 Transcription Output</h3>
+      <div id="transcriptionText">No transcription available yet.</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
